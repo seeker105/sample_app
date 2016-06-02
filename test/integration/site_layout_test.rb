@@ -14,6 +14,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
   # test "signup page" do
   #   get signup_path
+  #   # save_and_open_page
   #   assert page.has_content?("Sign up")
   # end
 
@@ -26,4 +27,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_equal full_title,         "Ruby on Rails Tutorial Sample App"
     assert_equal full_title("Help"), "Help | Ruby on Rails Tutorial Sample App"
   end
+
+
 end
