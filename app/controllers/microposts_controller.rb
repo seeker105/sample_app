@@ -26,7 +26,7 @@ class MicropostsController < ApplicationController
     end
 
     def correct_user
-      # TODO since these 2 lines are only used in one action, why not just put them as the
+      #  since these 2 lines are only used in one action, why not just put them as the
       # first 2 lines of the destroy action? ----Hmmm...a redirect doesn't stop the execution
       # of the method like a return does. But this ends with a redirect; does a redirect in the
       # before_action stop the destroy action from executing if it fires?

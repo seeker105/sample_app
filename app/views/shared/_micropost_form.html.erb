@@ -1,6 +1,6 @@
-<!--TODO instance vars don't get passed into partials, we usually have to define  a 'locals' hash
+<!-- instance vars don't get passed into partials, we usually have to define  a 'locals' hash
 why does @micropost get passed in? Does Rails infer it as part of the syntax of this partial call? -->
-<!--TODO I wouldn't have thought to render error messages here. Any particular notes I should make about this?  -->
+<!-- I wouldn't have thought to render error messages here. Any particular notes I should make about this?  -->
 <%= form_for(@micropost, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
