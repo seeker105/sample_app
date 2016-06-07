@@ -3,10 +3,17 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
-  # TODO this is the first time i've set up an accessor without
+  #  this is the first time i've set up an accessor without
   # in some way explicitly defining the variable as either an instance variable
   # or a table column. How exactly does this work? Is it created in the `remember` method?
-
+  has_many :active_relationships, class_name:  "Relationship",
+                                   foreign_key: "follower_id",
+                                 dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                    foreign_key: "followed_id",
+                                    dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
   has_secure_password
 
   validates :name, presence: true, length: {maximum: 50}
@@ -19,21 +26,21 @@ class User < ActiveRecord::Base
     BCrypt::Password.create(string, cost: cost)
   end
 
-  # TODO could you also define this def self.new_token ?
+  # could you also define this def self.new_token? YES
   def User.new_token
     SecureRandom.urlsafe_base64
   end
 
 
   def remember
-    # TODO ruby defines this as a an attribute/variable of the object
+    #  ruby defines this as a an attribute/variable of the object
     # even though the object has no such attribute previously defined?
     self.remember_token = User.new_token
-    # TODO an attr_reader can be called in the instance it was defined in. Do you need to use
+    #  an attr_reader can be called in the instance it was defined in. Do you need to use
     # User.digest here instead of just `digest` to let the program know it's a class method?
     # Wouldn't the  method be found as Ruby works it's way up the inheritance chain?
     update_attribute(:remember_digest, User.digest(remember_token))
-    # TODO when i view the cookie in the browser it looks like the remember_token is visible
+    #  when i view the cookie in the browser it looks like the remember_token is visible
     # in plain text. I thought the cookie was supposed to be encrypted? Am I viewing the decrypted
     # version because I'm looking at it on my machine?
   end
@@ -74,9 +81,28 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+  # Returns a user's status feed.
   def feed
-    Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
+
+  # Follows a user.
+def follow(other_user)
+  active_relationships.create(followed_id: other_user.id)
+end
+
+# Unfollows a user.
+def unfollow(other_user)
+  active_relationships.find_by(followed_id: other_user.id).destroy
+end
+
+# Returns true if the current user is following the other user.
+def following?(other_user)
+  following.include?(other_user)
+end
 
   private
     def downcase_email
