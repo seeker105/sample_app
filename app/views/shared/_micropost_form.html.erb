@@ -1,0 +1,22 @@
+<!--TODO instance vars don't get passed into partials, we usually have to define  a 'locals' hash
+why does @micropost get passed in? Does Rails infer it as part of the syntax of this partial call? -->
+<!--TODO I wouldn't have thought to render error messages here. Any particular notes I should make about this?  -->
+<%= form_for(@micropost, html: { multipart: true }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+  <span class="picture">
+    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
+<% end %>
+
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>

@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass'
 gem 'table_print'
 gem 'faker'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
 
 # pagination manager gem
 gem 'will_paginate'
