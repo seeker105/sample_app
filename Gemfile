@@ -7,6 +7,9 @@ gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
+gem 'figaro'
+gem 'faraday'
+gem 'awesome_print'
 
 # pagination manager gem
 gem 'will_paginate'

@@ -42,6 +42,7 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.6.2)
       execjs
+    awesome_print (1.6.1)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -80,7 +81,11 @@ GEM
     execjs (2.7.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
+    figaro (1.1.1)
+      thor (~> 0.14)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.38.0)
@@ -263,6 +268,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     nenv (0.3.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -363,6 +369,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bcrypt (~> 3.1.7)
   bootstrap-sass
   bootstrap-will_paginate
@@ -371,6 +378,8 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   faker
+  faraday
+  figaro
   fog
   guard-minitest (= 2.3.1)
   jbuilder (~> 2.0)

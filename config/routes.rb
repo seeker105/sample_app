@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get "login", to: 'sessions#new'
   post "login", to: 'sessions#create'
   delete "logout", to: 'sessions#destroy'
+  get "request_github_access", to: 'sessions#request_github_access'
+  get "/auth/github/callback", to: 'sessions#exchange_token'
+
+  get "git_main", to: 'git_pages#show'
+
   resources :users do
     member do
       get :following, :followers

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :state
   before_save   :downcase_email
   before_create :create_activation_digest
   #  this is the first time i've set up an accessor without
@@ -19,6 +19,15 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: {maximum: 50}
   validates :email, presence: true, length: {maximum: 255}, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: {case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  def organizations
+    service.organizations
+  end
+
+  def service
+    @service ||= GithubService.new
+  end
+
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

@@ -15,6 +15,16 @@ module SessionsHelper
     end
   end
 
+  def github_connected?
+    # byebug
+    !current_user.github_access_token.nil?
+  end
+
+  def github_login_fail
+    flash[:error] = "There was a problem connecting to GitHub.com. Please try again"
+    redirect_to root_url
+  end
+
   def logged_in?
     !current_user.nil?
   end
