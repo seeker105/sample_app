@@ -5,11 +5,11 @@ class GithubService
   end
 
   def organizations(current_user)
-    organizations = @_connection.get("/orgs") do |req|
+    response = @_connection.get do |req|
+      req.url 'orgs'
       req.headers[:Authorization] = "token #{current_user.github_access_token}"
     end
-    byebug
-    parsed_orgs = JSON.parse(organizations)
+    JSON.parse(response.body)
   end
 
 end
