@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: 'sessions#exchange_token'
 
   get "git_main", to: 'git_pages#show'
+  get "organizations", to: 'organizations#index'
 
   resources :users do
     member do
