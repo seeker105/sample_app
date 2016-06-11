@@ -41,5 +41,22 @@ followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
-# puts "creating listusers"
-# Listuser
+puts "creating test User"
+User.create!(name: "Test User",
+             email: "g@gmail.com",
+             password: 'jjjjjj',
+             password_confirmation: 'jjjjjj',
+             activated: true,
+             activated_at: Time.zone.now)
+
+puts "creating listusers"
+generator = Random.new
+byebug
+User.all.each do |user|
+  3.times do |x|
+    list = user.lists.create!(name: user.name + "-List-#{x+1}")
+    4.times do
+      list.listusers.create!(selected_user_id: (generator.rand(User.count)+1) )
+    end
+  end
+end
