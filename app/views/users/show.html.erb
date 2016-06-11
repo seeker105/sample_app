@@ -10,6 +10,11 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+    <section>
+      <% if @user != current_user %>
+      <%= link_to "Add to List", user_add_url, class: "btn btn-warning"%>
+      <% end %>
+    </section>
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>

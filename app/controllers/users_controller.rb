@@ -8,6 +8,9 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
+  def add_follow
+  end
+
   def new
     @user = User.new
   end

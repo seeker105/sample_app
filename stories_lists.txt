@@ -1,0 +1,11 @@
+A list has a name
+A list is owned by a user
+A list has many other users
+You can see a users lists at /users/:user_id/lists
+You can see the users on a list at /users/:user_id/lists/:id
+A user can create and destroy lists
+A user can add another user to any of their lists
+A user can add the same user to multiple lists
+A user cannot add the same user twice to one list
+All users can view any list
+A list can only be updated by its owner

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete "logout", to: 'sessions#destroy'
   get "request_github_access", to: 'sessions#request_github_access'
   get "/auth/github/callback", to: 'sessions#exchange_token'
+  get "/user/add", to: 'users#add_follow'
 
   get "git_main", to: 'git_pages#show'
   get "organizations", to: 'organizations#index'

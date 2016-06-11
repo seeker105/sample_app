@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :lists, class_name:  "List",
+                   foreign_key: "owner_id"
+  has_many :selected_users, through: :lists, source: "selected_users"
+
   has_secure_password
 
   validates :name, presence: true, length: {maximum: 50}

@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608183605) do
+ActiveRecord::Schema.define(version: 20160610192921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lists", force: :cascade do |t|
+    t.string  "name"
+    t.integer "owner_id"
+  end
+
+  add_index "lists", ["owner_id"], name: "index_lists_on_owner_id", using: :btree
+
+  create_table "listusers", force: :cascade do |t|
+    t.integer "list_id"
+    t.integer "selected_user_id"
+  end
+
+  add_index "listusers", ["list_id"], name: "index_listusers_on_list_id", using: :btree
+  add_index "listusers", ["selected_user_id"], name: "index_listusers_on_selected_user_id", using: :btree
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -56,5 +71,6 @@ ActiveRecord::Schema.define(version: 20160608183605) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "listusers", "lists"
   add_foreign_key "microposts", "users"
 end
