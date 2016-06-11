@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :lists, class_name:  "List",
                    foreign_key: "owner_id"
-  has_many :selected_users, through: :lists, source: "selected_users"
+  has_many :selected_users, through: :lists,
+                          source: "listusers"
 
   has_secure_password
 
