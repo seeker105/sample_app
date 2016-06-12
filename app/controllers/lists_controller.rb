@@ -10,6 +10,11 @@ class ListsController < ApplicationController
    # byebug
   end
 
+  def index
+    @lists = current_user.lists
+    @user = current_user
+  end
+
 
 
 end

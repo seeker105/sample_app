@@ -1,0 +1,30 @@
+<% provide(:title, "Personal Lists") %>
+<div class="row">
+  <aside class="col-md-4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @lists.any? %>
+      <h3>Lists (<%= @lists.count %>)</h3>
+      <ol class="line-item">
+        <% @lists.each do |list| %>
+          <span class="user"><li><%= link_to list.name, list_show_url(list.id) %></li></span>
+          <span class="user"><%= link_to "Delete this list", '#',
+                                  class: "btn btn-warning btn-sm",
+                                  method: :delete, data: { confirm: "You sure?" }  %></span>
+        <% end %>
+      </ol>
+    <% else %>
+      <h4>No Lists Created Yet!</h4><br />
+    <% end %>
+    <%= link_to "Create a List!", '#', class: "btn btn-primary btn-lg", method: "post" %>
+  </div>
+</div>
