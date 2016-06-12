@@ -117,6 +117,7 @@ aside {
   section {
     padding: 10px 0;
     margin-top: 20px;
+    z-index: 50;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -288,5 +289,43 @@ span.picture {
   margin-top: 10px;
   input {
     border: 0;
+  }
+}
+
+.dropdown-content {
+  padding: 0px 20px 0px 20px;
+}
+
+
+/* line-item */
+
+.line-item {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .user {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .content {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+  }
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
   }
 }

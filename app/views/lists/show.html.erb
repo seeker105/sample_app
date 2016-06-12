@@ -1,0 +1,38 @@
+<% provide(:title, @list.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @listusers.any? %>
+      <h3><%= @list.name %> (<%= @listusers.count %> other users selected)</h3>
+      <ol class="line-item">
+        <% @listusers.each do |listuser| %>
+        <li id="micropost-<%= listuser.id %>">
+          <%= link_to gravatar_for(listuser.selected_user, size: 50), user_url(listuser.selected_user) %>
+          <span class="user"><%= link_to listuser.selected_user.name, user_url(listuser.selected_user) %></span>
+          <span class="timestamp">
+              <%= link_to "Remove from this List", listuser_delete_url(listuser_id: listuser.id),
+                           class: "btn btn-warning btn-sm",
+                           method: :delete, data: { confirm: "You sure?" } %>
+          </span>
+        </li>
+        <% end %>
+      </ol>
+      <%= will_paginate @listusers %>
+    <% else %>
+      <h4>No users listed yet! </h4><br />
+      <h4>Why not list some users?</h4><br />
+      <h4>Make some friends?</h4><br />
+      <h1>Get a Life!</h1><br />
+    <% end %>
+  </div>
+</div>

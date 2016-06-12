@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   delete "logout", to: 'sessions#destroy'
   get "request_github_access", to: 'sessions#request_github_access'
   get "/auth/github/callback", to: 'sessions#exchange_token'
-  get "/user/add", to: 'users#add_follow'
+
+  post "user/listuser/new/:list_id/:user_id", to: 'listusers#add', as: :listuser_new
+  get "user/list/:list_id", to: 'lists#show', as: :list_show
+  delete "user/list/:listuser_id", to: 'listusers#delete', as: :listuser_delete
+  get "users/:user_id/lists", to: 'lists#index', as: :lists
 
   get "git_main", to: 'git_pages#show'
   get "organizations", to: 'organizations#index'

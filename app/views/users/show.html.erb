@@ -1,3 +1,8 @@
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="col-md-4">
@@ -10,11 +15,25 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
-    <section>
-      <% if @user != current_user %>
-      <%= link_to "Add to List", user_add_url, class: "btn btn-warning"%>
+
+
+
+    <% if current_user && (@user != current_user) %>
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Add to List
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <% @lists.each do |list| %>
+          <p class='dropdown-content'>
+            <%= link_to list.name, listuser_new_path(list_id: list.id, user_id: @user.id), method: "post" %>
+          </p>
+          <% end %>
+        </div>
       <% end %>
-    </section>
+
   </aside>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>

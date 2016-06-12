@@ -8,9 +8,6 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
-  def add_follow
-  end
-
   def new
     @user = User.new
   end
@@ -29,6 +26,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    @lists = current_user.lists.all if current_user
   end
 
   def edit
