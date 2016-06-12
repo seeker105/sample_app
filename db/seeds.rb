@@ -51,7 +51,6 @@ User.create!(name: "Test User",
 
 puts "creating listusers"
 generator = Random.new
-byebug
 User.all.each do |user|
   3.times do |x|
     list = user.lists.create!(name: user.name + "-List-#{x+1}")

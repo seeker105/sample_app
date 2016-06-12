@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :lists, class_name:  "List",
                    foreign_key: "owner_id"
   has_many :selected_users, through: :lists,
-                          source: "listusers"
+                            source: "listusers"
 
   has_secure_password
 
