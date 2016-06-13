@@ -1,0 +1,11 @@
+<aside class="col-md-4">
+  <section>
+    <h1>
+      <%= gravatar_for @user %>
+      <%= @user.name %>
+    </h1>
+  </section>
+  <section class="stats">
+    <%= render 'shared/stats' %>
+  </section>
+</aside>
