@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+    def check_authorization
+      unless current_user == User.find( params[:user_id] )
+        raise ActionController::RoutingError.new('Not Found')
+      end
+    end
 end

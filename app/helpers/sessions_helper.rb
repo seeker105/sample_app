@@ -21,7 +21,7 @@ module SessionsHelper
   end
 
   def github_login_fail
-    flash[:error] = "There was a problem connecting to GitHub.com. Please try again"
+    flash[:danger] = "There was a problem connecting to GitHub.com. Please try again"
     redirect_to root_url
   end
 
