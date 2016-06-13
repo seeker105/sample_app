@@ -1,7 +1,6 @@
 class ListsController < ApplicationController
   before_action :logged_in_user
-
-
+  before_action :check_authorization, only: :destroy
 
   def show
     @user = current_user
@@ -31,10 +30,25 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    list = List.find( list_user_params[:list_id] )
+    flash[:success] = "List '#{list.name}' was deleted!"
+    list.destroy
+    redirect_to lists_url( list_user_params[:user_id] )
+  end
 
   private
     def list_params
       params.require(:list).permit(:name)
     end
 
+    def list_user_params
+      params.permit(:user_id, :list_id)
+    end
+
+    def check_authorization
+      unless current_user == User.find( list_user_params[:user_id] )
+        raise ActionController::RoutingError.new('Not Found')
+      end
+    end
 end

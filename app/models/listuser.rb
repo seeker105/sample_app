@@ -1,6 +1,6 @@
 class Listuser < ActiveRecord::Base
   belongs_to :list
-  belongs_to :selected_user, class_name: "User",
+  has_one :selected_user, class_name: "User",
                             foreign_key: "id"
 
 

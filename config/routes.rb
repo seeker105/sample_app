@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "users/:user_id/lists", to: 'lists#index', as: :lists
   get "users/:user_id/lists/new", to: 'lists#new', as: :list_new
   post "users/:user_id/lists/create", to: 'lists#create', as: :list_create
+  delete "users/:user_id/lists/destroy/:list_id", to: 'lists#destroy', as: :list_destroy
   get "users/:user_id/lists/:id", to: 'lists#show', as: :list_show
 
   get "git_main", to: 'git_pages#show'

@@ -1,4 +1,4 @@
-<% provide(:title, "Personal Lists") %>
+<% provide(:title, "Personal List Index") %>
 <div class="row">
   <aside class="col-md-4">
     <section>
@@ -17,7 +17,8 @@
       <ol class="line-item">
         <% @lists.each do |list| %>
           <span class="user"><li><%= link_to list.name, list_show_url(user_id: @user.id, id: list.id) %></li></span>
-          <span class="user"><%= link_to "Delete this list", '#',
+          <span class="user"><%= link_to "Delete this list",
+                                  list_destroy_url(user_id: current_user.id, list_id: list.id),
                                   class: "btn btn-warning btn-sm",
                                   method: :delete, data: { confirm: "You sure?" }  %></span>
         <% end %>
