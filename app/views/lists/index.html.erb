@@ -16,7 +16,7 @@
       <h3>Lists (<%= @lists.count %>)</h3>
       <ol class="line-item">
         <% @lists.each do |list| %>
-          <span class="user"><li><%= link_to list.name, list_show_url(list.id) %></li></span>
+          <span class="user"><li><%= link_to list.name, list_show_url(user_id: @user.id, id: list.id) %></li></span>
           <span class="user"><%= link_to "Delete this list", '#',
                                   class: "btn btn-warning btn-sm",
                                   method: :delete, data: { confirm: "You sure?" }  %></span>
@@ -25,6 +25,6 @@
     <% else %>
       <h4>No Lists Created Yet!</h4><br />
     <% end %>
-    <%= link_to "Create a List!", '#', class: "btn btn-primary btn-lg", method: "post" %>
+    <%= link_to "Create a List!", list_new_url(@user.id), class: "btn btn-primary btn-lg" %>
   </div>
 </div>

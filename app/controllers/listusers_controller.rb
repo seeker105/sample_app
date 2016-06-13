@@ -7,7 +7,7 @@ class ListusersController < ApplicationController
       new_relation = Listuser.new(list_id: listuser_params[:list_id], selected_user_id: listuser_params[:user_id])
     end
     if new_relation && new_relation.save
-      redirect_to list_show_url(listuser_params[:list_id])
+      redirect_to list_show_url(user_id: current_user.id, id: listuser_params[:list_id])
     else
       flash[:error] = "We're sorry, the users was not correctly added to your list. Please try again"
       redirect_to request.referrer

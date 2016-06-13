@@ -1,0 +1,16 @@
+<% provide(:title, "Create a List") %>
+<div class="row">
+  <%= render partial: "shared/sidebar" %>
+  <%= form_for @list, url: list_create_url(@user.id) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="col-md-8">
+    <h2>Enter a name for the new List</h2>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+    <br />
+    <div class="col-md-2">
+      <%= f.submit "Submit", class: "btn btn-sm btn-primary" %>
+    </div>
+    <% end %>
+  </div>
+</div>
