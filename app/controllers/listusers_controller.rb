@@ -1,15 +1,16 @@
 class ListusersController < ApplicationController
   before_action :logged_in_user
 
+
   def add
-    # byebug
     if current_user.lists.find( listuser_params[:list_id] )
       new_relation = Listuser.new(list_id: listuser_params[:list_id], selected_user_id: listuser_params[:user_id])
     end
     if new_relation && new_relation.save
       redirect_to list_show_url(user_id: current_user.id, id: listuser_params[:list_id])
     else
-      flash[:error] = "We're sorry, the users was not correctly added to your list. Please try again"
+      flash[:danger] = "We're sorry, the users was not correctly added to your list. Please try again"
+      flash[:danger] = "A user cannot appear twice in the same list" unless new_relation.valid?
       redirect_to request.referrer
     end
   end
@@ -21,7 +22,7 @@ class ListusersController < ApplicationController
       flash[:success] = "User #{listuser.selected_user.name} has been removed from #{list.name}"
       listuser.destroy
     else
-      flash[:error] = "We're sorry, the users was not correctly added to your list. Please try again"
+      flash[:danger] = "We're sorry, the users was not correctly added to your list. Please try again"
     end
     redirect_to request.referrer
   end
@@ -34,5 +35,7 @@ class ListusersController < ApplicationController
     def list_params
       params.permit(:listuser_id)
     end
+
+
 
 end

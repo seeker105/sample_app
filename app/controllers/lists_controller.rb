@@ -6,12 +6,11 @@ class ListsController < ApplicationController
     @user = current_user
     @list = current_user.lists.find(params[:id])
     @listusers = @list.listusers.paginate(page: params[:page])
-    # byebug
   end
 
   def index
-    @lists = current_user.lists
-    @user = current_user
+    @user = User.find(params[:user_id])
+    @lists = @user.lists
   end
 
   def new
@@ -25,7 +24,7 @@ class ListsController < ApplicationController
       flash[:success] = "New List '#{list.name}' created!"
       redirect_to lists_url(current_user.id)
     else
-      flash[:warning] = "We're sorry. There was a problem creating your list. Please try again"
+      flash[:danger] = "We're sorry. There was a problem creating your list. Please try again"
       redirect_to list_new_url(current_user.id)
     end
   end
@@ -47,7 +46,7 @@ class ListsController < ApplicationController
     end
 
     def check_authorization
-      unless current_user == User.find( list_user_params[:user_id] )
+      unless current_user == User.find( params[:user_id] )
         raise ActionController::RoutingError.new('Not Found')
       end
     end

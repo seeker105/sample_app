@@ -3,7 +3,7 @@ class Listuser < ActiveRecord::Base
   has_one :selected_user, class_name: "User",
                             foreign_key: "id"
 
-
+  validates_uniqueness_of :selected_user_id, :scope => :list
 
 
 
