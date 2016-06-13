@@ -13,7 +13,7 @@
   </aside>
   <div class="col-md-8">
     <% if @listusers.any? %>
-      <h3><%= @list.name %> (<%= @listusers.count %> other users selected)</h3>
+      <h3><%= @list.name %> (<%= pluralize(@listusers.count, "other user") %>  selected)</h3>
       <ol class="line-item">
         <% @listusers.each do |listuser| %>
         <li id="micropost-<%= listuser.id %>">
@@ -29,10 +29,10 @@
       </ol>
       <%= will_paginate @listusers %>
     <% else %>
-      <h4>No users listed yet! </h4><br />
-      <h4>Why not list some users?</h4><br />
-      <h4>Make some friends?</h4><br />
-      <h1>Get a Life!</h1><br />
+      <h4>No users listed yet! </h4>
+      <h4>Why not list some users?</h4>
+      <h4>Make some friends?</h4>
+      <h3>Get a Life!</h3>
     <% end %>
   </div>
 </div>
