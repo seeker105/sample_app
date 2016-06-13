@@ -28,6 +28,8 @@
     <% else %>
       <h4>No Lists Created Yet!</h4><br />
     <% end %>
-    <%= link_to "Create a List!", list_new_url(@user.id), class: "btn btn-primary btn-lg" %>
+    <% if @user==current_user %>
+      <%= link_to "Create a List!", list_new_url(@user.id), class: "btn btn-primary btn-lg" %>
+    <% end %>
   </div>
 </div>
