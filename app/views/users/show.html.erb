@@ -15,9 +15,10 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
-    <%= link_to "My Lists", user_lists_url(@user.id) %>
+    <%= link_to "My Lists", user_lists_url(@user.id) %><br  /><br  />
 
     <% if current_user && (@user != current_user) %>
+      <%= link_to "DM Me!", '#', class: 'btn btn-warning' %><br  /><br  />
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

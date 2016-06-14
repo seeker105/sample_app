@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'directmessages/:user_id/sent', to: 'directmessages#sent', as: :messages_sent
+  get 'directmessages/:user_id/received', to: 'directmessages#received', as: :messages_received
+  get 'directmessages/:sender_id/new/:receiver_id', to: 'directmessages#new', as: :message_new
+  post 'directmessages/:sender_id/create/:receiver_id', to: 'directmessages#create', as: :message_create
+  get 'directmessages/:sender_id/show/:receiver_id', to: 'directmessages#show', as: :message_show
+
   root "static_pages#home"
   get "help", to: "static_pages#help"
   get "about", to: "static_pages#about"
