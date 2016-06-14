@@ -1,0 +1,3 @@
+A user can create a new direct message intended for another user
+A user can view messages directed at them
+The system will restrict users from viewing messages that they did not create or receive
