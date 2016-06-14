@@ -1,16 +1,6 @@
 <% provide(:title, "Personal List Index") %>
 <div class="row">
-  <aside class="col-md-4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <section class="stats">
-      <%= render 'shared/stats' %>
-    </section>
-  </aside>
+<%= render partial: "shared/sidebar" %>
   <div class="col-md-8">
     <% if @lists.any? %>
       <h3>Lists (<%= @lists.count %>)</h3>

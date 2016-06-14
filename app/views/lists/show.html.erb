@@ -1,16 +1,6 @@
 <% provide(:title, @list.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <section class="stats">
-      <%= render 'shared/stats' %>
-    </section>
-  </aside>
+  <%= render partial: "shared/sidebar" %>
   <div class="col-md-8">
     <% if @listusers.any? %>
       <h3><%= @list.name %> (<%= pluralize(@listusers.count, "other user") %>  selected)</h3>
@@ -19,11 +9,18 @@
         <li id="micropost-<%= listuser.id %>">
           <%= link_to gravatar_for(listuser.selected_user, size: 50), user_url(listuser.selected_user) %>
           <span class="user"><%= link_to listuser.selected_user.name, user_url(listuser.selected_user) %></span>
-          <span class="timestamp">
+          <% if @user==current_user %>
+            <span class="timestamp">
               <%= link_to "Remove from this List", listuser_delete_url(listuser_id: listuser.id),
-                           class: "btn btn-warning btn-sm",
-                           method: :delete, data: { confirm: "You sure?" } %>
+              class: "btn btn-warning btn-sm",
+                method: :delete, data: { confirm: "You sure?" } %>
+              </span>
+          <% else %>
+          <span class="timestamp">
+              <%= link_to "", "#",
+                           class: "btn btn-warning-outline btn-sm"%>
           </span>
+          <% end %>
         </li>
         <% end %>
       </ol>

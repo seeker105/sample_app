@@ -21,7 +21,7 @@ class ListusersController < ApplicationController
       flash[:success] = "User #{listuser.selected_user.name} has been removed from #{list.name}"
       listuser.destroy
     else
-      flash[:danger] = "We're sorry, the users was not correctly added to your list. Please try again"
+      flash[:danger] = "We're sorry, the user was not correctly added to your list. Please try again"
     end
     redirect_to request.referrer
   end
@@ -37,6 +37,7 @@ class ListusersController < ApplicationController
 
     def check_valid_user_list
       unless current_user.lists.find_by(id: listuser_params[:list_id] )
+        flash[:danger] = "We're sorry, the user was not correctly added to your list. Please try again"
         request.referrer ? (redirect_to request.referrer) : (redirect_to root_url)
       end
     end
