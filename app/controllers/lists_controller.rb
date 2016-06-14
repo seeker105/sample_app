@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_authorization, only: [:destroy, :create]
+  before_action :check_ownership, only: [:destroy, :create]
 
   def show
     @user = User.find(params[:user_id])
@@ -35,6 +35,7 @@ class ListsController < ApplicationController
     list.destroy
     redirect_to lists_url( list_user_params[:user_id] )
   end
+
   private
     def list_params
       params.require(:list).permit(:name)
@@ -44,7 +45,7 @@ class ListsController < ApplicationController
       params.permit(:user_id, :list_id)
     end
 
-    def check_authorization
+    def check_ownership
       unless current_user == User.find( params[:user_id] )
         flash[:danger] = "We're sorry. There was a problem creating your list. Please try again"
         redirect_to lists_url(current_user)
