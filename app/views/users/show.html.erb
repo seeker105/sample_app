@@ -17,8 +17,6 @@
     </section>
     <%= link_to "My Lists", lists_url(@user.id) %>
 
-
-
     <% if current_user && (@user != current_user) %>
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"

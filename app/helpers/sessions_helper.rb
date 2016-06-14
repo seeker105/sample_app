@@ -16,7 +16,6 @@ module SessionsHelper
   end
 
   def github_connected?
-    # byebug
     !current_user.github_access_token.nil?
   end
 

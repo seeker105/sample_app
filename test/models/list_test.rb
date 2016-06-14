@@ -9,13 +9,9 @@ class ListTest < ActiveSupport::TestCase
     @malory = users(:malory)
     @list = @michael.lists.create(name: "Michael's List 1")
 
-
     Listuser.create(list_id: @list.id, selected_user_id: @archer.id )
     Listuser.create(list_id: @list.id, selected_user_id: @lana.id )
     Listuser.create(list_id: @list.id, selected_user_id: @malory.id )
-
-
-    # byebug
   end
 
   test "a list has a name" do
@@ -23,7 +19,6 @@ class ListTest < ActiveSupport::TestCase
   end
 
   test "a list has an owner" do
-    # byebug
     assert_equal @michael, @list.owner
   end
 
@@ -34,9 +29,4 @@ class ListTest < ActiveSupport::TestCase
     assert_equal @lana, @list.listusers[1].selected_user
     assert_equal @malory, @list.listusers[2].selected_user
   end
-
-
-
-
-
 end
