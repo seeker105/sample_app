@@ -1,10 +1,10 @@
 class ListsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_authorization, only: :destroy
+  before_action :check_authorization, only: [:destroy, :create]
 
   def show
-    @user = current_user
-    @list = current_user.lists.find(params[:id])
+    @user = User.find(params[:user_id])
+    @list = @user.lists.find(params[:id])
     @listusers = @list.listusers.paginate(page: params[:page])
   end
 
@@ -35,7 +35,6 @@ class ListsController < ApplicationController
     list.destroy
     redirect_to lists_url( list_user_params[:user_id] )
   end
-
   private
     def list_params
       params.require(:list).permit(:name)
@@ -47,7 +46,8 @@ class ListsController < ApplicationController
 
     def check_authorization
       unless current_user == User.find( params[:user_id] )
-        raise ActionController::RoutingError.new('Not Found')
+        flash[:danger] = "We're sorry. There was a problem creating your list. Please try again"
+        redirect_to lists_url(current_user)
       end
     end
 end

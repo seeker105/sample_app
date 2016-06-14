@@ -10,6 +10,8 @@ gem 'fog'
 gem 'figaro'
 gem 'faraday'
 gem 'awesome_print'
+gem 'selenium-webdriver'
+gem 'xpath'
 
 # pagination manager gem
 gem 'will_paginate'

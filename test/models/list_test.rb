@@ -10,9 +10,9 @@ class ListTest < ActiveSupport::TestCase
     @list = @michael.lists.create(name: "Michael's List 1")
 
 
-      Listuser.create(list_id: @list.id, selected_user_id: @archer.id )
-      Listuser.create(list_id: @list.id, selected_user_id: @lana.id )
-      Listuser.create(list_id: @list.id, selected_user_id: @malory.id )
+    Listuser.create(list_id: @list.id, selected_user_id: @archer.id )
+    Listuser.create(list_id: @list.id, selected_user_id: @lana.id )
+    Listuser.create(list_id: @list.id, selected_user_id: @malory.id )
 
 
     # byebug
