@@ -15,7 +15,8 @@ class ActionDispatch::IntegrationTest
   # Use super wherever this method is redefined in your individual test classes
   def teardown
     Capybara.reset_sessions!
-    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+    # Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+    Capybara.use_default_driver
   end
 end
 
@@ -27,7 +28,7 @@ class ActiveSupport::TestCase
   def is_logged_in?
     !session[:user_id].nil?
   end
-  
+
 
   # Logs in a test user.
   def log_in_as(user, options = {})
