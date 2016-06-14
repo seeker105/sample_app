@@ -26,13 +26,13 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "user's lists can be seen at /users/:user_id/lists" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', text: "Michael's List 1"
     assert_select 'a', text: "Michael's List 2"
   end
 
   test "only the selected user's lists are shown" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', text: "Archer's List 1", count: 0
     assert_select 'a', text: "Archer's List 2", count: 0
   end
@@ -50,14 +50,14 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "a user sees a create list button on their list index page only" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', text: "Create a List!", count: 1
-    get lists_path(@archer.id)
+    get user_lists_path(@archer.id)
     assert_select 'a', text: "Create a List!", count: 0
   end
 
   test "a user can create lists" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', text: "Test List", count: 0
     get list_new_path(@michael.id)
     assert_select 'form input' do
@@ -67,9 +67,9 @@ class ListsTest < ActionDispatch::IntegrationTest
       post list_create_path(user_id: @michael.id, list:{name: "Test List"})
     end
 
-    assert_redirected_to lists_path(@michael.id)
+    assert_redirected_to user_lists_path(@michael.id)
     assert_not flash.empty?
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', {count: 1, text: "Test List"}
   end
 
@@ -81,16 +81,16 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "a user sees delete links for their lists only" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', {count: @michael.lists.count, text: "Delete this list"}
     # all lists can be seen by any user
-    get lists_path(@archer.id)
+    get user_lists_path(@archer.id)
     assert @archer.lists.count > 0
     assert_select 'a', {count: 0, text: "Delete this list"}
   end
 
   test "a user can delete lists" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_select 'a', {count: 1, text: @michael_list_1.name}
     assert_difference "List.count", -1 do
       delete list_destroy_path(user_id: @michael.id, list_id: @michael_list_1.id)
@@ -99,7 +99,7 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "a user cannot delete other users' lists" do
-    get lists_path(@michael.id)
+    get user_lists_path(@michael.id)
     assert_no_difference "List.count" do
       delete list_destroy_path(user_id: @archer.id, list_id: @archer_list_1.id)
     end
@@ -145,7 +145,7 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "a user cannot add to another user's lists" do
-    get lists_path(@michael)
+    get user_lists_path(@michael)
     assert_difference "Listuser.count", 0 do
       post listuser_new_path(list_id: @archer_list_1.id, user_id: @susan.id)
     end
@@ -159,7 +159,7 @@ class ListsTest < ActionDispatch::IntegrationTest
   end
 
   test "a user cannot delete from another user's lists" do
-    get lists_path(@archer)
+    get user_lists_path(@archer)
     listuser_id = @archer.lists[0].listusers[0].id
     assert_no_difference "Listuser.count" do
       delete listuser_delete_path(listuser_id: listuser_id)

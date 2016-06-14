@@ -22,7 +22,7 @@ class ListsController < ApplicationController
     list = current_user.lists.new(list_params)
     if list && list.save
       flash[:success] = "New List '#{list.name}' created!"
-      redirect_to lists_url(current_user.id)
+      redirect_to user_lists_url(current_user.id)
     else
       flash[:danger] = "We're sorry. There was a problem creating your list. Please try again"
       redirect_to list_new_url(current_user.id)
@@ -33,7 +33,7 @@ class ListsController < ApplicationController
     list = List.find( list_user_params[:list_id] )
     flash[:success] = "List '#{list.name}' was deleted!"
     list.destroy
-    redirect_to lists_url( list_user_params[:user_id] )
+    redirect_to user_lists_url( list_user_params[:user_id] )
   end
 
   private
@@ -48,7 +48,7 @@ class ListsController < ApplicationController
     def check_ownership
       unless current_user == User.find( params[:user_id] )
         flash[:danger] = "We're sorry. There was a problem creating your list. Please try again"
-        redirect_to lists_url(current_user)
+        redirect_to user_lists_url(current_user)
       end
     end
 end
