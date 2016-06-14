@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: 'sessions#exchange_token'
 
   post "user/listuser/new/:list_id/:user_id", to: 'listusers#add', as: :listuser_new
-  # get "user/list/:list_id", to: 'lists#show', as: :list_show
   delete "user/list/:listuser_id", to: 'listusers#delete', as: :listuser_delete
   get "users/:user_id/lists", to: 'lists#index', as: :lists
   get "users/:user_id/lists/new", to: 'lists#new', as: :list_new
