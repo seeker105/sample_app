@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20160614231005) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "directmessages", ["receiver_id"], name: "index_directmessages_on_receiver_id", using: :btree
+  add_index "directmessages", ["sender_id"], name: "index_directmessages_on_sender_id", using: :btree
+
   create_table "lists", force: :cascade do |t|
     t.string  "name"
     t.integer "owner_id"
