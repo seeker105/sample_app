@@ -1,2 +1,18 @@
-<h1>Directmessages#index</h1>
-<p>Find me in app/views/directmessages/index.html.erb</p>
+<% provide(:title, @header) %>
+<div class="row">
+<%= render partial: "shared/sidebar" %>
+  <div class="col-md-8">
+    <h3><%= "#{@header}" %></h3><br /><br  />
+
+    <% if @messages.any? %>
+      <ol class="line-item">
+        <% @messages.each do |message| %>
+          <span class="user"><li><%= link_to "#{message.content.slice(0,5)}...",
+                                 "#" %></li></span>
+      <% end %>
+      </ol>
+    <% else %>
+      <h4>No <%= "#{@header}" %> Yet!</h4><br />
+    <% end %>
+  </div>
+</div>

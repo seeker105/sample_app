@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
         raise ActionController::RoutingError.new('Not Found')
       end
     end
+
+    def action_fail(message = "")
+      flash[:danger] = "We're sorry. There was a problem with your request." + message
+    end
+
+    def basic_redirect
+      request.referrer ? (redirect_to request.referrer): (redirect_to root_url)
+    end
 end

@@ -45,7 +45,7 @@ class ActiveSupport::TestCase
 
   def log_out_test
     if integration_test?
-      post logout_path
+      delete logout_path
     else
       session[:user_id] = nil
     end
