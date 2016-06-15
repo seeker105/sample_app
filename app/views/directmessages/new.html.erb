@@ -1,2 +1,15 @@
-<h1>Directmessages#new</h1>
-<p>Find me in app/views/directmessages/new.html.erb</p>
+<% provide(:title, "Send a Direct Message") %>
+<div class="row">
+<%= render partial: "shared/sidebar" %>
+  <div class="col-md-8">
+    <h3>Send Message to <%= @user.name %></h3><br /><br  />
+    <%= form_for @message, url: message_create_url do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <%= f.label :content, "Message text" %>
+      <%= f.text_field :content, class: "form-control" %><br />
+      <div class="col-md-3">
+        <%= f.submit "Send Message", class: "btn btn-primary"%>
+      </div>
+    <% end %>
+  </div>
+</div>
