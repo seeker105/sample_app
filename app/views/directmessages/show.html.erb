@@ -1,2 +1,11 @@
-<h1>Directmessages#show</h1>
-<p>Find me in app/views/directmessages/show.html.erb</p>
+<% provide(:title, "Message View") %>
+<div class="row">
+<%= render partial: "shared/sidebar" %>
+  <div class="col-md-8">
+    <h3>Message View</h3><br /><br  />
+
+    <span class="user"><%= @message.content %></span><br  />
+    <%= link_to "#{@other_label} #{@other_user.name}", user_path(@other_user) %>
+
+  </div>
+</div>

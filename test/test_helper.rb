@@ -51,6 +51,8 @@ class ActiveSupport::TestCase
     end
   end
 
+
+
   private
 
     # Returns true inside an integration test.
