@@ -9,7 +9,7 @@ class DirectmessagesTest < ActionDispatch::IntegrationTest
     @malory = users(:malory)
     @susan=users(:susan)
 
-    @Directmessage.create(sender_id: @michael.id,
+    Directmessage.create(sender_id: @michael.id,
                          receiver_id: @archer.id, content: "M->A1...")
     Directmessage.create(sender_id: @michael.id,
                          receiver_id: @archer.id, content: "M->A2...")
@@ -90,10 +90,10 @@ class DirectmessagesTest < ActionDispatch::IntegrationTest
     assert_select 'a', {count: 0, text: "A->S1..."}
   end
 
-  test "a user can select an individual message to view the full message" do
-    log_in_as(@michael)
-    get message_show_url(user_id: @michael.id, )
-  end
+  # test "a user can select an individual message to view the full message" do
+  #   log_in_as(@michael)
+  #   get message_show_url(user_id: @michael.id, )
+  # end
 
 
 
