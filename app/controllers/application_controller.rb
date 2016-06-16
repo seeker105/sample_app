@@ -15,15 +15,18 @@ class ApplicationController < ActionController::Base
 
     def check_authorization
       unless current_user == User.find( params[:user_id] )
-        raise ActionController::RoutingError.new('Not Found')
+        # raise ActionController::RoutingError.new('Not Found')
+        action_fail
+        # render :file => "public/404"
       end
     end
 
     def action_fail(message = "")
       flash[:danger] = "We're sorry. There was a problem with your request." + message
+      basic_redirect
     end
 
     def basic_redirect
-      request.referrer ? (redirect_to request.referrer): (redirect_to root_url)
+      request.referrer ? (redirect_to request.referrer) : (redirect_to root_url)
     end
 end

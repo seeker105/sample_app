@@ -2,9 +2,10 @@
 <div class="row">
 <%= render partial: "shared/sidebar" %>
   <div class="col-md-8">
+    <%= form_for @directmessage, url: message_create_path do |f| %>
+    <%= hidden_field(:directmessage, :sender_id, value: @directmessage.sender_id) %>
+    <%= hidden_field(:directmessage, :receiver_id, value: @directmessage.receiver_id) %>
     <h3>Send Message to <%= @user.name %></h3><br /><br  />
-    <%= form_for @message, url: message_create_url do |f| %>
-      <%= render "shared/error_messages", object: f.object %>
       <%= f.label :content, "Message text" %>
       <%= f.text_field :content, class: "form-control" %><br />
       <div class="col-md-3">
